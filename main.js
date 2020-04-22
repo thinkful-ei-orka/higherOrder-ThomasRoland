@@ -42,7 +42,61 @@ const filteredNames = filter(myNames, function(name) {
     return name[0] === 'R';
 });
 
-console.log(filteredNames) // => ['Rich', 'Ray']
+console.log(filteredNames); // => ['Rich', 'Ray']
 // <---- DO NOT EDIT BETWEEN THESE LINES
 
-console.log(filter(myNames));
+function hazardWarningCreator(typeOfWarning) {
+    let warningCounter = 0;
+
+    return function (location) {
+        warningCounter++;
+        console.log(`DANGER! there is a ${typeOfWarning} hazard at ${location}!`);
+        console.log(`The ${typeOfWarning} hazard alert has triggered ${warningCounter} time(s) today!`);
+    };
+}
+
+const rocksWarning = hazardWarningCreator('Rocks on the Road');
+const floodsWarning = hazardWarningCreator('Flooding nearby');
+const pokemonWarning = hazardWarningCreator('Pokemon in tall grass');
+
+rocksWarning('Main St and Pacific Ave');
+rocksWarning('Centinela Ave and Olympic Blvd');
+floodsWarning('I-95');
+floodsWarning('Capitol Hill');
+pokemonWarning('Route-19');
+
+//turtle steps: [3, 4] <-- steps forward, steps left
+let turtleSteps = [[0, 0], [0, 5], [-1, -3], [-3, 1], [2, -4], [3, 2]];
+
+let stepFilter = turtleSteps.filter(step => step[0] >= 0 && step[1] >= 0);
+let stepTotal = turtleSteps.map(steps => Math.abs(steps[0]) + Math.abs(steps[1]));
+let stepCount = 1;
+stepTotal.forEach(move => {
+    let message =`Movement #${stepCount}: ${move} step`;
+    if (move > 1 || move === 0) {
+        message += 's';
+    }
+    stepCount++;
+    console.log(message);
+});
+
+/*
+[[0, 0],  <-- [0, 0]
+ [0, 5],        -> 0
+ [-1, -3],      -> 0
+ [-3, 1],
+ [2, -4],
+ [3, 2]]
+*/
+
+let decodeString = 'noggin oreo the moon time tele steed his tent apollo her lives though shoo tofu budapest';
+let strSplit = decodeString.split(' ');
+let message = strSplit.reduce((acc, word) => {
+    if (word.length === 3) {
+        return acc += ' ';
+    } else {
+        return acc += word[word.length - 1].toUpperCase();
+    }
+}, '');
+
+console.log(message);
